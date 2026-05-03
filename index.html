@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoha Shakeel — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050709;
+  --bg2:#0a0d12;
+  --surface:#0f1318;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.1);
+  --text:#e8eaf0;
+  --muted:#6b7280;
+  --muted2:#9ca3af;
+  --accent:#4f9eff;
+  --accent2:#7bb8ff;
+  --green:#22d3a5;
+  --purple:#a78bfa;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none}
+
+#cur{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,opacity 0.2s;mix-blend-mode:screen}
+#cur-r{position:fixed;width:40px;height:40px;border-radius:50%;border:1px solid rgba(79,158,255,0.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 60px;height:70px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);background:rgba(5,7,9,0.8)}
+.logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.8)}}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.3px;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{padding:9px 20px;background:var(--accent);color:#000;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;letter-spacing:0.2px}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+
+.status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--green);border:1px solid rgba(34,211,165,0.2);padding:5px 12px;border-radius:100px;background:rgba(34,211,165,0.05)}
+.status-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 60px 80px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-200px;left:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(79,158,255,0.08) 0%,transparent 65%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(167,139,250,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:900px}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.eyebrow-line{width:32px;height:1px;background:var(--accent)}
+.eyebrow-text{font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+.hero-name{font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,100px);font-weight:800;line-height:0.95;letter-spacing:-3px;margin-bottom:24px}
+.hero-name .line2{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.2);position:relative}
+.hero-name .line2::after{content:'Shakeel';position:absolute;left:0;top:0;color:var(--text);clip-path:inset(0 0 0 0);-webkit-text-stroke:0px}
+.hero-tagline{font-size:clamp(14px,2vw,17px);color:var(--muted2);line-height:1.7;max-width:560px;margin-bottom:44px;font-weight:400}
+.hero-tagline strong{color:var(--text);font-weight:500}
+.type-wrap{font-size:16px;color:var(--muted2);margin-bottom:10px;height:24px}
+.type-wrap span{color:var(--accent);font-weight:500}
+.cursor-blink{animation:cblink 0.9s infinite}
+@keyframes cblink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px}
+.btn{padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;letter-spacing:0.2px}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 25px rgba(79,158,255,0.3)}
+.btn-secondary{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:48px}
+.stat-item{display:flex;flex-direction:column;gap:4px}
+.stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--text);letter-spacing:-1px}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:0.5px}
+
+.marquee-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;overflow:hidden;background:var(--surface);position:relative;z-index:1}
+.marquee-inner{display:flex;animation:scroll 30s linear infinite;white-space:nowrap}
+.marquee-inner span{padding:0 16px;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:16px}
+.marquee-inner span::after{content:'◆';color:var(--accent);font-size:8px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:100px 60px;position:relative;z-index:1}
+.section-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-badge::before{content:'';width:20px;height:1px;background:var(--accent)}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,52px);font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05}
+.section-sub{font-size:15px;color:var(--muted2);line-height:1.7;max-width:540px}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:56px}
+.about-text p{font-size:15px;color:var(--muted2);line-height:1.8;margin-bottom:16px}
+.about-text p strong{color:var(--text);font-weight:500}
+.info-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}
+.info-card{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.info-card-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.info-card-val{font-size:13px;color:var(--text);font-weight:500}
+
+.skills-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--muted2);margin-bottom:24px;letter-spacing:0.5px}
+.skill-item{margin-bottom:20px}
+.skill-top{display:flex;justify-content:space-between;margin-bottom:7px}
+.skill-name{font-size:13px;color:var(--text);font-weight:500}
+.skill-pct{font-size:12px;color:var(--accent);font-weight:600}
+.skill-track{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.skill-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(0.16,1,0.3,1)}
+.skill-bar.animate{transform:scaleX(1)}
+
+/* PROJECTS - CLICKABLE */
+.projects-bg{background:var(--bg2)}
+.projects-grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:52px}
+.project-card{background:var(--bg);padding:32px;transition:background 0.25s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block;cursor:pointer}
+.project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,158,255,0.04) 0%,transparent 60%);opacity:0;transition:opacity 0.3s}
+.project-card:hover{background:var(--surface)}
+.project-card:hover::before{opacity:1}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.project-num{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px}
+.project-arrow{width:32px;height:32px;border:1px solid var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;transition:all 0.25s}
+.project-card:hover .project-arrow{border-color:var(--accent);color:var(--accent);transform:rotate(-45deg)}
+.project-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:9px;letter-spacing:-0.3px;color:var(--text)}
+.project-desc{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:18px}
+.project-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ptag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:4px;background:rgba(79,158,255,0.08);color:var(--accent);letter-spacing:0.3px;border:1px solid rgba(79,158,255,0.15)}
+.projects-2col{grid-template-columns:1fr 1fr}
+
+/* GitHub badge on card */
+.github-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--green);border:1px solid rgba(34,211,165,0.2);padding:3px 8px;border-radius:4px;margin-top:10px}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+.service-card{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:all 0.3s;position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--purple));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.service-card:hover{border-color:rgba(79,158,255,0.25);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+.service-card:hover::after{transform:scaleX(1)}
+.service-icon-wrap{width:44px;height:44px;border-radius:10px;background:rgba(79,158,255,0.1);border:1px solid rgba(79,158,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.service-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:4px}
+.service-name{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
+.service-desc{font-size:13px;color:var(--muted2);line-height:1.7}
+
+.contact-section{background:var(--bg2)}
+.contact-inner{max-width:700px;margin:52px auto 0;text-align:center}
+.contact-title{font-family:'Syne',sans-serif;font-size:clamp(38px,6vw,68px);font-weight:800;letter-spacing:-2.5px;line-height:1;margin-bottom:20px}
+.contact-title em{font-style:italic;color:var(--accent);-webkit-text-stroke:0}
+.contact-sub{font-size:15px;color:var(--muted2);margin-bottom:44px;line-height:1.7}
+.contact-links{display:flex;flex-direction:column;gap:12px;align-items:center}
+.clink{display:flex;align-items:center;gap:12px;padding:16px 28px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text);font-size:14px;font-weight:500;transition:all 0.25s;width:100%;max-width:380px;justify-content:space-between}
+.clink:hover{border-color:var(--accent);color:var(--accent);transform:translateX(6px)}
+.clink-left{display:flex;align-items:center;gap:12px}
+.clink-icon{font-size:16px}
+.clink-label{font-size:11px;color:var(--muted);font-weight:400;display:block;margin-top:1px}
+.clink-arrow{color:var(--muted);font-size:16px;transition:color 0.25s}
+.clink:hover .clink-arrow{color:var(--accent)}
+
+footer{padding:28px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;flex-wrap:wrap;gap:10px}
+footer span{font-size:12px;color:var(--muted)}
+footer a{color:var(--muted);text-decoration:none;transition:color 0.2s}
+footer a:hover{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.show{opacity:1;transform:none}
+.reveal-d1{transition-delay:0.1s}
+.reveal-d2{transition-delay:0.2s}
+.reveal-d3{transition-delay:0.3s}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links a:not(.nav-cta){display:none}
+  section,.hero{padding:70px 24px}
+  footer{padding:20px 24px}
+  .about-grid,.projects-2col{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .hero-stats{gap:28px}
+  .stat-num{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav>
+  <a href="#" class="logo"><span class="logo-dot"></span>Zoha Shakeel</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#services">Services</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow reveal">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">BS Information Technology · NUTECH Islamabad</span>
+    </div>
+    <h1 class="hero-name reveal reveal-d1">
+      <span class="line1">Zoha</span><br>
+      <span class="line2">Shakeel</span>
+    </h1>
+    <div class="type-wrap reveal reveal-d2"><span id="typed"></span><span class="cursor-blink">|</span></div>
+    <p class="hero-tagline reveal reveal-d2">
+      I build <strong>real-world software</strong> — from AI-powered security tools to full-stack web applications. 
+      Based in Rawalpindi 🇵🇰, currently in my 4th semester and already shipping production-grade projects.
+    </p>
+    <div class="hero-actions reveal reveal-d3">
+      <a href="#projects" class="btn btn-primary">View My Work →</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      <a href="https://github.com/ZohaShakil" target="_blank" class="btn btn-secondary">GitHub ↗</a>
+    </div>
+    <div class="hero-stats reveal reveal-d3">
+      <div class="stat-item"><div class="stat-num">07+</div><div class="stat-label">Projects Built</div></div>
+      <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label">Technologies</div></div>
+      <div class="stat-item"><div class="stat-num">4th</div><div class="stat-label">Semester</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>Python</span><span>Java</span><span>C++</span><span>JavaScript</span><span>HTML & CSS</span>
+    <span>SQL</span><span>Cybersecurity</span><span>Machine Learning</span><span>Web Development</span><span>Data Analysis</span>
+    <span>Python</span><span>Java</span><span>C++</span><span>JavaScript</span><span>HTML & CSS</span>
+    <span>SQL</span><span>Cybersecurity</span><span>Machine Learning</span><span>Web Development</span><span>Data Analysis</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-badge reveal">About Me</div>
+  <h2 class="section-title reveal">Building things that<br><span style="color:var(--accent)">actually work.</span></h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm <strong>Zoha Shakeel</strong>, a 4th semester BS Information Technology student at <strong>NUTECH Islamabad</strong>. I'm passionate about cybersecurity, software development, and machine learning — not just as subjects, but as tools to build real solutions.</p>
+      <p>From building an AI ransomware detection system to a full boutique management platform with bilingual support, I focus on projects that go beyond coursework and solve actual problems.</p>
+      <p>Currently freelancing on the side — delivering data collection, web development, and software projects for clients internationally.</p>
+      <div class="info-cards">
+        <div class="info-card"><div class="info-card-label">University</div><div class="info-card-val">NUTECH Islamabad</div></div>
+        <div class="info-card"><div class="info-card-label">Semester</div><div class="info-card-val">4th (Fall 2024)</div></div>
+        <div class="info-card"><div class="info-card-label">Location</div><div class="info-card-val">Rawalpindi, Pakistan</div></div>
+        <div class="info-card"><div class="info-card-label">Languages</div><div class="info-card-val">English · Urdu</div></div>
+      </div>
+    </div>
+    <div class="reveal reveal-d2">
+      <div class="skills-title">Technical Skills</div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">HTML & CSS</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.88"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">Python</span><span class="skill-pct">78%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.78"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">JavaScript</span><span class="skill-pct">75%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.75"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">Cybersecurity</span><span class="skill-pct">76%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.76"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">Java</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.90"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">SQL / Database</span><span class="skill-pct">74%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.74"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">C++</span><span class="skill-pct">70%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.70"></div></div></div>
+      <div class="skill-item"><div class="skill-top"><span class="skill-name">Machine Learning</span><span class="skill-pct">68%</span></div><div class="skill-track"><div class="skill-bar" style="--w:0.68"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="projects-bg" id="projects">
+  <div class="section-badge reveal">Selected Work</div>
+  <h2 class="section-title reveal">7 Projects.<br><span style="color:var(--muted2);font-size:0.75em;letter-spacing:-1px">All shipped. All real.</span></h2>
+  <div class="projects-grid projects-2col">
+
+    <!-- 01 - Has repo -->
+    <a class="project-card reveal" href="https://github.com/ZohaShakil/network-steganography-based-detection" target="_blank">
+      <div class="project-header"><span class="project-num">01</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">Network Steganography System</div>
+      <div class="project-desc">Secure data-hiding system embedding sensitive information within digital media files using steganography techniques for enhanced security.</div>
+      <div class="project-tags"><span class="ptag">Python</span><span class="ptag">Security</span><span class="ptag">Cryptography</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 02 - No repo found, links to profile -->
+    <a class="project-card reveal reveal-d1" href="https://github.com/ZohaShakil" target="_blank">
+      <div class="project-header"><span class="project-num">02</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">AI Ransomware Analysis</div>
+      <div class="project-desc">ML-powered detection system identifying ransomware behavior patterns using anomaly detection algorithms and behavioral data visualization.</div>
+      <div class="project-tags"><span class="ptag">Python</span><span class="ptag">ML</span><span class="ptag">AI</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 03 - Has repo -->
+    <a class="project-card reveal" href="https://github.com/ZohaShakil/SecureAccessMonitoringSystem" target="_blank">
+      <div class="project-header"><span class="project-num">03</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">Secure Access Monitoring</div>
+      <div class="project-desc">User access control system with robust authentication mechanisms implementing core security principles and role-based access management.</div>
+      <div class="project-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">Security</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 04 - Has repo -->
+    <a class="project-card reveal reveal-d1" href="https://github.com/ZohaShakil/Atm-Fraud-Detection-System" target="_blank">
+      <div class="project-header"><span class="project-num">04</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">ATM Fraud Detection</div>
+      <div class="project-desc">ML system detecting fraudulent ATM transactions using KMeans, DBSCAN & Isolation Forest clustering algorithms on transaction data.</div>
+      <div class="project-tags"><span class="ptag">Python</span><span class="ptag">ML</span><span class="ptag">Pandas</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 05 - No repo, links to profile -->
+    <a class="project-card reveal reveal-d1" href="https://github.com/ZohaShakil" target="_blank">
+      <div class="project-header"><span class="project-num">05</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">Pakistan Weather App</div>
+      <div class="project-desc">Web-based weather application for 24+ Pakistan cities with 5-day forecast, responsive UI and real-time weather data integration.</div>
+      <div class="project-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span><span class="ptag">API</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 06 - No repo, links to profile -->
+    <a class="project-card reveal" href="https://github.com/ZohaShakil" target="_blank">
+      <div class="project-header"><span class="project-num">06</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">Boutique Management System</div>
+      <div class="project-desc">Complete business management platform with clients, orders, and workers modules — supports Urdu/English interface with CSV export.</div>
+      <div class="project-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+    <!-- 07 - No repo, links to profile -->
+    <a class="project-card reveal reveal-d1" href="https://github.com/ZohaShakil" target="_blank">
+      <div class="project-header"><span class="project-num">07</span><div class="project-arrow">↗</div></div>
+      <div class="project-name">Business Finance Manager</div>
+      <div class="project-desc">Bilingual finance tracker featuring interactive charts, category breakdown analysis, monthly overview dashboard and detailed reporting.</div>
+      <div class="project-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span><span class="ptag">Charts</span></div>
+      <div class="github-badge">🐙 View on GitHub</div>
+    </a>
+
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-badge reveal">What I Offer</div>
+  <h2 class="section-title reveal">Services</h2>
+  <p class="section-sub reveal">Available for freelance projects — fast delivery, clean code, real results.</p>
+  <div class="services-grid">
+    <div class="service-card reveal"><div class="service-icon-wrap">🌐</div><div class="service-num">01</div><div class="service-name">Web Development</div><div class="service-desc">Clean, responsive websites built with HTML, CSS & JavaScript. Custom designs with pixel-perfect implementation and fast delivery.</div></div>
+    <div class="service-card reveal reveal-d1"><div class="service-icon-wrap">🛡️</div><div class="service-num">02</div><div class="service-name">Cybersecurity</div><div class="service-desc">Security analysis, vulnerability assessment, steganography systems, and secure application development.</div></div>
+    <div class="service-card reveal reveal-d2"><div class="service-icon-wrap">🤖</div><div class="service-num">03</div><div class="service-name">Machine Learning</div><div class="service-desc">AI-based solutions for fraud detection, anomaly detection, and intelligent data analysis using Python & ML libraries.</div></div>
+    <div class="service-card reveal"><div class="service-icon-wrap">📊</div><div class="service-num">04</div><div class="service-name">Data Entry & Collection</div><div class="service-desc">Accurate and fast data entry — Excel, Google Sheets, web scraping, PDF to Word conversion and database management.</div></div>
+    <div class="service-card reveal reveal-d1"><div class="service-icon-wrap">☕</div><div class="service-num">05</div><div class="service-name">Java Development</div><div class="service-desc">Desktop applications using Java Swing with database integration, encryption, GUI development and system automation.</div></div>
+    <div class="service-card reveal reveal-d2"><div class="service-icon-wrap">⚙️</div><div class="service-num">06</div><div class="service-name">Custom Software</div><div class="service-desc">Business dashboards, management systems, and custom software solutions tailored precisely to your requirements.</div></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="section-badge reveal" style="justify-content:center">Let's Connect</div>
+  <div class="contact-inner">
+    <h2 class="contact-title reveal">Let's Build<br><em>Something</em><br>Great.</h2>
+    <p class="contact-sub reveal">Available for freelance work · Rawalpindi, Pakistan 🇵🇰<br>Response time: within 24 hours</p>
+    <div class="contact-links reveal">
+      <a href="https://www.linkedin.com/in/zoha-shakeel-a42011305/" target="_blank" class="clink">
+        <div class="clink-left"><span class="clink-icon">🔗</span><div><strong>LinkedIn</strong><span class="clink-label">linkedin.com/in/zoha-shakeel</span></div></div>
+        <span class="clink-arrow">↗</span>
+      </a>
+      <a href="https://github.com/ZohaShakil" target="_blank" class="clink">
+        <div class="clink-left"><span class="clink-icon">🐙</span><div><strong>GitHub</strong><span class="clink-label">github.com/ZohaShakil</span></div></div>
+        <span class="clink-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Zoha Shakeel</span>
+  <span>BS IT · NUTECH Islamabad · 4th Semester</span>
+  <span>Built with <a href="#">HTML · CSS · JS</a></span>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.style.transform='translate(-50%,-50%) scale(2.5)');el.addEventListener('mouseleave',()=>cur.style.transform='translate(-50%,-50%) scale(1)')});
+
+const phrases=['Web Developer.','Cybersecurity Enthusiast.','Machine Learning Developer.','Problem Solver.','IT Student @ NUTECH.'];
+let pi=0,ci=0,del=false;const el=document.getElementById('typed');
+(function type(){
+  const cur=phrases[pi];
+  if(!del){el.textContent=cur.slice(0,++ci);if(ci===cur.length){del=true;setTimeout(type,1800);return}}
+  else{el.textContent=cur.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length}}
+  setTimeout(type,del?55:90);
+})();
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');if(e.target.classList.contains('reveal'))obs.unobserve(e.target)}})},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+const skillObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-bar').forEach(bar=>{
+        const w=parseFloat(bar.style.getPropertyValue('--w'))||0;
+        bar.style.width=(w*100)+'%';
+        bar.classList.add('animate');
+      });skillObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.about-grid').forEach(el=>skillObs.observe(el));
+
+setTimeout(()=>document.querySelectorAll('.hero .reveal').forEach(el=>el.classList.add('show')),100);
+</script>
+</body>
+</html>
